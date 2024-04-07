@@ -11,16 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::dropIfExists('cities');
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
+            $table->integer('capital_id');
+            #$table->integer('attraction_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('avatar')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('description');
+            $table->string('file');
             $table->timestamps();
         });
+        
+        // id
+        // name
+        // prefecture_id
+
+        // island_id
+        // region_id
     }
 
     /**
@@ -28,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
