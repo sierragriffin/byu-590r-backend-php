@@ -27,6 +27,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('attractions', function (Blueprint $table) {
+            // The exact name of the foreign key constraint follows a certain format
+            // If you haven't explicitly named it, Laravel assumes a default name based on the table and column names
+            $table->dropForeign(['city_id']); // Use the column name to reference the constraint
+        });
+    
+        Schema::dropIfExists('attractions');
     }
 };
