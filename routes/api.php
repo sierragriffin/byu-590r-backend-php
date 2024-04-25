@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController; 
 use App\Http\Controllers\API\UserController; 
 use App\Http\Controllers\API\CityController; 
+use App\Http\Controllers\API\CapitalController; 
+use App\Http\Controllers\API\AttractionController; 
+use App\Http\Controllers\API\CityPersonController;
+
+use App\Models\City;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +38,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(CityController::class)->group(function(){
         Route::post('cities/{id}/update_city_picture', 'updateCityPicture');
     });
+    Route::resource('capitals', CapitalController::class);
+    Route::resource('attractions', AttractionController::class);
+    Route::post('/cities/{cityId}/people/{personId}', [CityPersonController::class, 'attachPersonToCity']);
+    Route::get('capitals/{id}', [CapitalController::class, 'show']);
+
 
     Route::controller(UserController::class)->group(function () {
         Route::get('user', 'getUser');
