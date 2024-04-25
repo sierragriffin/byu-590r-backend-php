@@ -24,9 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AttractionSeeder::class
         ]);
-        $this->call([
-            PeopleSeeder::class
-        ]);
     }
     
     //  public function run(): void
