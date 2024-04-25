@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class City extends Model
 {
@@ -31,4 +32,7 @@ class City extends Model
     //     return $this->hasMany(Attraction::class, 'id', 'attraction_id');
     // }
 
+    public function people() :BelongsToMany {
+        return $this->belongsToMany(Person::class, 'city_person', 'maincity_id', 'person_id');
+    }
 }

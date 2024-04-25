@@ -11,14 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attractions', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('city_id');
-            $table->string('name');
-            #$table->string('description');
+            $table->string('fullname');
+            // Add other columns as needed
             $table->timestamps();
+        });
 
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+        Schema::create('city_person', function (Blueprint $table) {
+            $table->unsignedBigInteger('maincity_id');
+            $table->unsignedBigInteger('person_id');
+            $table->primary(['maincity_id', 'person_id']);
+            $table->foreign('maincity_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
+
+            $table->unique(['city_id', 'person_id']);
         });
     }
 
@@ -27,12 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('attractions', function (Blueprint $table) {
-            // The exact name of the foreign key constraint follows a certain format
-            // If you haven't explicitly named it, Laravel assumes a default name based on the table and column names
-            $table->dropForeign(['city_id']); // Use the column name to reference the constraint
-        });
-    
-        Schema::dropIfExists('attractions');
+        Schema::dropIfExists('city_person');
+        Schema::dropIfExists('people');
     }
 };
